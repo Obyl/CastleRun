@@ -34,22 +34,22 @@ public class MainMenu {
         creditText = Font.createSprite("by Oliver Byl", 100, 30, 0xCBD8F2);
         creditText.opacity = 0.0f;
 
-        playButton = new Button(162, 85, "Play");
+        playButton = new Button(162, 85, "Play", "normal");
         playButton.sprite.opacity = 0.0f;
         playButton.action = () -> {
             game.state = GameState.PLAYING;
         };
 
-        optionsButton = new Button(162, 115, "Options");
+        optionsButton = new Button(162, 115, "Options", "normal");
         optionsButton.sprite.opacity = 0.0f;
 
-        quitButton = new Button(162, 145, "Quit");
+        quitButton = new Button(162, 145, "Quit", "normal");
         quitButton.sprite.opacity = 0.0f;
         quitButton.action = () -> {
             System.exit(0);
         };
 
-        openEditor = new Button(2, 202, "Open Editor");
+        openEditor = new Button(2, 202, "Open Editor", "normal");
         openEditor.sprite.opacity = 0.0f;
         openEditor.action = LevelEditor::new;
     }

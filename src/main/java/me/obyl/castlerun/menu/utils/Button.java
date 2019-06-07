@@ -7,8 +7,6 @@ import me.obyl.castlerun.utils.Mouse;
 
 public class Button {
 
-    private static final float BUTTON_WIDTH = 80;
-    private static final float BUTTON_HEIGHT = 20;
     private static final int TEXT_COLOR = 0xCBD8F2;
 
     public float x, y;
@@ -19,16 +17,29 @@ public class Button {
     private Sprite normalSprite;
     private Sprite hoverSprite;
     private Sprite clickSprite;
+    private int width, height;
 
-    public Button(float x, float y, String text){
+    public Button(float x, float y, String text, String type){
         this.x = x;
         this.y = y;
 
-        normalSprite = new Sprite("/textures/menu/button_normal.png");
-        hoverSprite = new Sprite("/textures/menu/button_hover.png");
-        clickSprite = new Sprite("/textures/menu/button_click.png");
+        switch(type){
+            case "normal":
+                normalSprite = new Sprite("/textures/menu/buttons/normal_normal.png");
+                hoverSprite = new Sprite("/textures/menu/buttons/normal_hover.png");
+                clickSprite = new Sprite("/textures/menu/buttons/normal_click.png");
+                width = 80;
+                height = 20;
+                break;
+            case "play":
+                normalSprite = new Sprite("/textures/menu/buttons/play_normal.png");
+                hoverSprite = new Sprite("/textures/menu/buttons/play_hover.png");
+                clickSprite = new Sprite("/textures/menu/buttons/play_normal.png");
+                width = 24;
+                height = 24;
+        }
 
-        Sprite textSprite = Font.createSprite(text, BUTTON_WIDTH, BUTTON_HEIGHT, TEXT_COLOR);
+        Sprite textSprite = Font.createSprite(text, width, height, TEXT_COLOR);
 
         float startX = 40 - (textSprite.width / 2);
         float startY = 10 - (textSprite.height / 2);
@@ -42,7 +53,7 @@ public class Button {
                 if(addColor == 0xff00ff)
                     continue;
 
-                int addLoc = (int) ((startX + xs) + (startY + ys) * BUTTON_WIDTH);
+                int addLoc = (int) ((startX + xs) + (startY + ys) * width);
                 normalSprite.pixels[addLoc] = addColor;
                 hoverSprite.pixels[addLoc] = addColor;
                 clickSprite.pixels[addLoc] = addColor;
@@ -53,7 +64,7 @@ public class Button {
     }
 
     public void tick(){
-        if(Mouse.x >= x && Mouse.y >= y && Mouse.x < x + BUTTON_WIDTH && Mouse.y < y + BUTTON_HEIGHT){
+        if(Mouse.x >= x && Mouse.y >= y && Mouse.x < x + width && Mouse.y < y + height){
             sprite = hoverSprite;
             if(Mouse.isButtonPressed(Mouse.LEFT)){
                 sprite = clickSprite;
