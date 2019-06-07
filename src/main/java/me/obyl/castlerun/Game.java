@@ -11,6 +11,7 @@ import me.obyl.castlerun.utils.Mouse;
 import me.obyl.castlerun.level.Level;
 import me.obyl.castlerun.menu.LoadingMenu;
 import me.obyl.castlerun.menu.MainMenu;
+import me.obyl.castlerun.menu.SaveMenu;
 
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
@@ -32,19 +33,18 @@ DUE DATE: June 17, 2019
 13 days from now.
 
 How to finish the game:
-1. Finish designing the saves viewing menu.
-2. Implement the saves viewing menu, at least basically.
-3. Implement the player.
-4. Make a list of all interact tiles the game will require.
-5. Implement those tiles into the level editor.
-6. Implement those tiles into the game.
-7. Implement the enemy/combat system.
-8. Implement enemies into the level editor. (?)
-9. Go through the game level by level and design them.
-10. Design the boss system.
-11. Implement the (three?) bosses.
-12. Implement audio engine.
-13. Implement options menu.
+    Implement the saves viewing menu, at least basically.
+    Implement the player.
+    Make a list of all interact tiles the game will require.
+    Implement those tiles into the level editor.
+    Implement those tiles into the game.
+    Implement the enemy/combat system.
+    Implement enemies into the level editor. (?)
+    Go through the game level by level and design them.
+    Design the boss system.
+    Implement the (three?) bosses.
+    Implement audio engine.
+    Implement options menu.
 */
 
 public class Game extends Canvas {
@@ -65,6 +65,7 @@ public class Game extends Canvas {
 
     public LoadingMenu loadingMenu;
     public MainMenu mainMenu;
+    public SaveMenu saveMenu;
 
     public Player player;
 
@@ -129,6 +130,7 @@ public class Game extends Canvas {
 
         // Load menus:
         mainMenu = new MainMenu(this);
+        saveMenu = new SaveMenu(this, gson);
 
         // Load tile textures:
         Sprite tileSpriteSheet = new Sprite("/textures/tiles.png");
