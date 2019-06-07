@@ -13,7 +13,7 @@ import me.obyl.castlerun.utils.Save;
 
 public class SaveMenu {
 
-    public Game game;
+    private Game game;
     public Save[] data;
 
     public SaveMenu(Game game, Gson gson){
@@ -27,5 +27,15 @@ public class SaveMenu {
         }catch(FileNotFoundException e){
             e.printStackTrace();
         }
+    }
+
+    public void tick(){
+
+    }
+
+    public void render(){
+        game.display.drawSprite(game.mainMenu.skyLayer, 0, 0);
+        game.display.drawSprite(game.mainMenu.castleLayer, 6, 18);
+        game.display.drawSprite(game.mainMenu.titleText, 0, -1);
     }
 }

@@ -164,7 +164,8 @@ public class Game extends Canvas {
             case MAIN_MENU:
                 mainMenu.tick();
                 break;
-            case VIEW_SAVE:
+            case VIEW_SAVES:
+                saveMenu.tick();
                 break;
             case PLAYING:
                 break;
@@ -186,7 +187,8 @@ public class Game extends Canvas {
             case MAIN_MENU:
                 mainMenu.render();
                 break;
-            case VIEW_SAVE:
+            case VIEW_SAVES:
+                saveMenu.render();
                 break;
             case PLAYING:
                 Level.levels.get("area2").render(display);

@@ -13,15 +13,17 @@ public class MainMenu {
     private float yScrollChange = 0.3f;
 
     private Game game;
-    private Sprite skyLayer;
-    private Sprite castleLayer;
-    private Sprite titleText;
-    private Sprite creditText;
+    public Sprite skyLayer;
+    public Sprite castleLayer;
+    public Sprite titleText;
+    public Sprite creditText;
 
     private Button playButton;
     private Button optionsButton;
     private Button quitButton;
     private Button openEditor;
+
+    private boolean transToSaves;
 
     public MainMenu(Game game){
         this.game = game;
@@ -37,7 +39,7 @@ public class MainMenu {
         playButton = new Button(162, 85, "Play", "normal");
         playButton.sprite.opacity = 0.0f;
         playButton.action = () -> {
-            game.state = GameState.PLAYING;
+            transToSaves = true;;
         };
 
         optionsButton = new Button(162, 115, "Options", "normal");
@@ -59,17 +61,30 @@ public class MainMenu {
             yScroll += yScrollChange;
             yScrollChange += 0.01;
         }else if(titleText.opacity < 1.0f){
-            titleText.opacity += 0.01;
-            creditText.opacity += 0.01;
-            playButton.sprite.opacity += 0.01;
-            optionsButton.sprite.opacity += 0.01;
-            quitButton.sprite.opacity += 0.01;
-            openEditor.sprite.opacity += 0.01;
+            titleText.opacity += 0.02;
+            creditText.opacity += 0.02;
+            playButton.sprite.opacity += 0.02;
+            optionsButton.sprite.opacity += 0.02;
+            quitButton.sprite.opacity += 0.02;
+            openEditor.sprite.opacity += 0.02;
         }else{
             playButton.tick();
             optionsButton.tick();
             quitButton.tick();
             openEditor.tick();
+        }
+
+        if(transToSaves){
+            if(creditText.opacity > 0.0f){
+                creditText.opacity -= 0.02;
+                playButton.sprite.opacity -= 0.02;
+                optionsButton.sprite.opacity -= 0.02;
+                quitButton.sprite.opacity -= 0.02;
+                openEditor.sprite.opacity -= 0.02;
+            }else{
+                game.state = GameState.VIEW_SAVES;
+                transToSaves = false;
+            }
         }
     }
 
