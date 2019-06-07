@@ -3,6 +3,7 @@ package me.obyl.castlerun;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import me.obyl.castlerun.entity.Player;
 import me.obyl.castlerun.graphics.Display;
 import me.obyl.castlerun.graphics.Font;
 import me.obyl.castlerun.graphics.Sprite;
@@ -64,6 +65,8 @@ public class Game extends Canvas {
 
     public LoadingMenu loadingMenu;
     public MainMenu mainMenu;
+
+    public Player player;
 
     public Game(){
         // Setup window:
@@ -145,6 +148,10 @@ public class Game extends Canvas {
             Level.loadLevelFromFile(gson, levelFiles[i]);
             //loadingMenu.addToLoadCount();
         }
+
+        // Load player's save data:
+        player = new Player(gson);
+        loadingMenu.addToLoadCount();
     }
 
     private void tick(){
@@ -155,7 +162,7 @@ public class Game extends Canvas {
             case MAIN_MENU:
                 mainMenu.tick();
                 break;
-            case MAKE_CHARACTER:
+            case VIEW_SAVE:
                 break;
             case PLAYING:
                 break;
@@ -177,7 +184,7 @@ public class Game extends Canvas {
             case MAIN_MENU:
                 mainMenu.render();
                 break;
-            case MAKE_CHARACTER:
+            case VIEW_SAVE:
                 break;
             case PLAYING:
                 Level.levels.get("area2").render(display);
