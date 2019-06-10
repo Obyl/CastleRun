@@ -73,6 +73,7 @@ public class Button {
     }
 
     public void tick(){
+        normalSprite.opacity = hoverSprite.opacity = sprite.opacity;
         if(Mouse.x >= x && Mouse.y >= y && Mouse.x < x + width && Mouse.y < y + height){
             sprite = hoverSprite;
             if(Mouse.isButtonPressed(Mouse.LEFT)){
