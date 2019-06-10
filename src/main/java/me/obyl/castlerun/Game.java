@@ -30,10 +30,9 @@ import java.util.TimerTask;
 
 /*
 DUE DATE: June 17, 2019
-13 days from now.
+7 days from now.
 
 How to finish the game:
-    Implement the saves viewing menu, at least basically.
     Implement the player.
     Make a list of all interact tiles the game will require.
     Implement those tiles into the level editor.
@@ -128,6 +127,10 @@ public class Game extends Canvas {
         Font.load(gson);
         loadingMenu.addToLoadCount();
 
+        // Load player's save data:
+        player = new Player(this);
+        loadingMenu.addToLoadCount();
+
         // Load menus:
         mainMenu = new MainMenu(this);
         saveMenu = new SaveMenu(this, gson);
@@ -150,10 +153,6 @@ public class Game extends Canvas {
             Level.loadLevelFromFile(gson, levelFiles[i]);
             //loadingMenu.addToLoadCount();
         }
-
-        // Load player's save data:
-        player = new Player(gson);
-        loadingMenu.addToLoadCount();
     }
 
     private void tick(){

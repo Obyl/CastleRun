@@ -1,6 +1,6 @@
 [
     {
-        "index": 2,
+        "index": 1,
         "name": "Charles",
         "level": "area2",
         "x": 0,
@@ -19,7 +19,7 @@
         "levelData": {}
     },
     {
-        "index": 1,
+        "index": 0,
         "name": "Hannah",
         "level": "area2",
         "x": 0,
@@ -34,25 +34,6 @@
         "bigKey": false,
         "master": true,
         "chef": true,
-        "king": false,
-        "levelData": {}
-    },
-    {
-        "index": 0,
-        "name": "Freddie",
-        "level": "area2",
-        "x": 0,
-        "y": 0,
-        "health": 6,
-        "maxHealth": 6,
-        "facing": 0,
-        "keys": 0,
-        "hammer": false,
-        "cannon": false,
-        "greatSword": false,
-        "bigKey": false,
-        "master": false,
-        "chef": false,
         "king": false,
         "levelData": {}
     }

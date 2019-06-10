@@ -25,8 +25,9 @@ public class SaveMenu {
     private Sprite name0, name1, name2;
     private Sprite heartLeftEmpty, heartLeftFull, heartRightEmpty, heartRightFull;
     private Sprite bossDark, bossLight;
+    private EnterNameBox box0, box1, box2;
 
-    private Game game;
+    public Game game;
     public Save[] data;
 
     public SaveMenu(Game game, Gson gson){
@@ -51,14 +52,13 @@ public class SaveMenu {
 
         background = new Sprite("/textures/menu/saves_background.png");
         allSprites.add(background);
-        new0 = new Button(228, 71, "", "new");
-        allSprites.add(new0.sprite);
-        new1 = new Button(228, 126, "", "new");
-        allSprites.add(new1.sprite);
-        new2 = new Button(228, 181, "", "new");
-        allSprites.add(new2.sprite);
 
-        if(data[0] != null){
+        if(data[0] == null){
+            new0 = new Button(116, 71, "", "new");
+            new0.action = () -> { box0.show = true; };
+            allSprites.add(new0.sprite);
+            box0 = new EnterNameBox(this, 0);
+        }else{
             name0 = Font.createSprite(data[0].name, 250, 14, 0xCBD8F2);
             allSprites.add(name0);
             play0 = new Button(228, 60, "", "play");
@@ -66,7 +66,12 @@ public class SaveMenu {
             trash0 = new Button(228, 85, "", "trash");
             allSprites.add(trash0.sprite);
         }
-        if(data[1] != null){
+        if(data[1] == null){
+            new1 = new Button(116, 127, "", "new");
+            new1.action = () -> { box1.show = true; };
+            allSprites.add(new1.sprite);
+            box1 = new EnterNameBox(this, 1);
+        }else{
             name1 = Font.createSprite(data[1].name, 250, 14, 0xCBD8F2);
             allSprites.add(name1);
             play1 = new Button(228, 115, "", "play");
@@ -74,7 +79,12 @@ public class SaveMenu {
             trash1 = new Button(228, 140, "", "trash");
             allSprites.add(trash1.sprite);
         }
-        if(data[2] != null){
+        if(data[2] == null){
+            new2 = new Button(116, 183, "", "new");
+            new2.action = () -> { box2.show = true; };
+            allSprites.add(new2.sprite);
+            box2 = new EnterNameBox(this, 2);
+        }else{
             name2 = Font.createSprite(data[2].name, 250, 14, 0xCBD8F2);
             allSprites.add(name2);
             play2 = new Button(228, 170, "", "play");
@@ -108,18 +118,21 @@ public class SaveMenu {
         }else{
             if(data[0] == null){
                 new0.tick();
+                box0.tick();
             }else{
                 play0.tick();
                 trash0.tick();
             }
             if(data[1] == null){
                 new1.tick();
+                box1.tick();
             }else{
                 play1.tick();
                 trash1.tick();
             }
             if(data[2] == null){
                 new2.tick();
+                box2.tick();
             }else{
                 play2.tick();
                 trash2.tick();
@@ -137,7 +150,10 @@ public class SaveMenu {
         game.display.drawSprite(background, 1, 168);
 
         if(data[0] == null){
-            new0.render(game.display);
+            if(box0.show)
+                box0.render();
+            else
+                new0.render(game.display);
         }else{
             game.display.drawSprite(name0, 4, 60);
             play0.render(game.display);
@@ -174,7 +190,10 @@ public class SaveMenu {
                 game.display.drawSprite(bossDark, 46, 92);
         }
         if(data[1] == null){
-            new1.render(game.display);
+            if(box1.show)
+                box1.render();
+            else
+                new1.render(game.display);
         }else{
             game.display.drawSprite(name1, 4, 116);
             play1.render(game.display);
@@ -211,7 +230,10 @@ public class SaveMenu {
                 game.display.drawSprite(bossDark, 46, 148);
         }
         if(data[2] == null){
-            new2.render(game.display);
+            if(box2.show)
+                box2.render();
+            else
+                new2.render(game.display);
         }else{
             game.display.drawSprite(name2, 4, 172);
             play2.render(game.display);
