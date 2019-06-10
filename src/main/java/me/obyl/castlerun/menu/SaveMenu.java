@@ -19,13 +19,21 @@ public class SaveMenu {
     public SaveMenu(Game game, Gson gson){
         this.game = game;
 
+        Save[] loadedData = null;
         Type parseType = new TypeToken<Save[]>(){}.getType();
         try{
-            data = gson.fromJson(
+            loadedData = gson.fromJson(
                 new FileReader(new File("saves.json")),
                 parseType);
         }catch(FileNotFoundException e){
             e.printStackTrace();
+        }
+
+        data = new Save[3];
+        for(int i = 0; i < 3; i++){
+            try{
+                data[loadedData[i].index] = loadedData[i];
+            }catch(ArrayIndexOutOfBoundsException e){}
         }
     }
 

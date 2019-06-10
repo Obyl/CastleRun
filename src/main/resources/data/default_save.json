@@ -1,5 +1,4 @@
 {
-    "started": false,
     "level": "area2",
     "x": 0,
     "y": 0,
@@ -11,5 +10,8 @@
     "cannon": false,
     "greatSword": false,
     "bigKey": false,
+    "master": false,
+    "chef": false,
+    "king": false,
     "levelData": {}
 }
