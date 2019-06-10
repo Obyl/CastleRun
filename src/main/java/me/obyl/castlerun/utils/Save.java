@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 public class Save{
     public int index;
+    public String name;
     public String level;
     public int x, y;
     public int health, maxHealth;

@@ -13,6 +13,7 @@ import me.obyl.castlerun.utils.TileData;
 public class Player{
 
     public final Animation[] animations = new Animation[4];
+    public String name;
     public int x, y;
     public int health, maxHealth;
     public int facing;
@@ -28,6 +29,7 @@ public class Player{
     }
 
     public void loadSave(Save save){
+        this.name = save.name;
         this.x = save.x;
         this.y = save.y;
         this.facing = save.facing;

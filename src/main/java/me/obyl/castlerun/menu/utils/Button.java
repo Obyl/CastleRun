@@ -16,7 +16,6 @@ public class Button {
     private boolean canClick = true;
     private Sprite normalSprite;
     private Sprite hoverSprite;
-    private Sprite clickSprite;
     private int width, height;
 
     public Button(float x, float y, String text, String type){
@@ -27,16 +26,27 @@ public class Button {
             case "normal":
                 normalSprite = new Sprite("/textures/menu/buttons/normal_normal.png");
                 hoverSprite = new Sprite("/textures/menu/buttons/normal_hover.png");
-                clickSprite = new Sprite("/textures/menu/buttons/normal_click.png");
                 width = 80;
                 height = 20;
                 break;
             case "play":
                 normalSprite = new Sprite("/textures/menu/buttons/play_normal.png");
                 hoverSprite = new Sprite("/textures/menu/buttons/play_hover.png");
-                clickSprite = new Sprite("/textures/menu/buttons/play_normal.png");
                 width = 24;
                 height = 24;
+                break;
+            case "new":
+                normalSprite = new Sprite("/textures/menu/buttons/new_normal.png");
+                hoverSprite = new Sprite("/textures/menu/buttons/new_hover.png");
+                width = 24;
+                height = 24;
+                break;
+            case "trash":
+                normalSprite = new Sprite("/textures/menu/buttons/trash_normal.png");
+                hoverSprite = new Sprite("/textures/menu/buttons/trash_hover.png");
+                width = 24;
+                height = 24;
+                break;
         }
 
         Sprite textSprite = Font.createSprite(text, width, height, TEXT_COLOR);
@@ -56,7 +66,6 @@ public class Button {
                 int addLoc = (int) ((startX + xs) + (startY + ys) * width);
                 normalSprite.pixels[addLoc] = addColor;
                 hoverSprite.pixels[addLoc] = addColor;
-                clickSprite.pixels[addLoc] = addColor;
             }
         }
 
@@ -67,7 +76,7 @@ public class Button {
         if(Mouse.x >= x && Mouse.y >= y && Mouse.x < x + width && Mouse.y < y + height){
             sprite = hoverSprite;
             if(Mouse.isButtonPressed(Mouse.LEFT)){
-                sprite = clickSprite;
+                sprite = normalSprite;
                 if(canClick && action != null){
                     action.onClick();
                     canClick = false;
