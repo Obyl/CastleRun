@@ -1,6 +1,6 @@
 [
     {
-        "index": 1,
+        "index": 0,
         "name": "Charles",
         "level": "area2",
         "x": 0,
@@ -19,7 +19,7 @@
         "levelData": {}
     },
     {
-        "index": 0,
+        "index": 2,
         "name": "Hannah",
         "level": "area2",
         "x": 0,

@@ -1,10 +1,6 @@
 package me.obyl.castlerun.entity;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.util.HashMap;
-
-import com.google.gson.Gson;
 
 import me.obyl.castlerun.Game;
 import me.obyl.castlerun.graphics.Animation;
