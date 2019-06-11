@@ -62,6 +62,7 @@ public class Font {
         int xAnchor = 0;
         int yAnchor = 0;
         StringTokenizer tokenizer = new StringTokenizer(text, " ");
+        int index = 0;
         while(tokenizer.hasMoreTokens()){
             String word = tokenizer.nextToken();
 
@@ -70,10 +71,14 @@ public class Font {
                 xAnchor = 0;
             }
 
-            for(int c = 0; c < word.length(); c++){
-                String currentCharacter = word.substring(c, c + 1);
+            while(text.substring(index, index + 1).equals(" ")){
+                xAnchor += MAX_CHAR_WIDTH;
+                index++;
+            }
+            index += word.length();
 
-                int character = CHARS.indexOf(currentCharacter);
+            for(char c : word.toCharArray()){
+                int character = CHARS.indexOf(c);
 
                 int xStart = xAnchor + CHAR_X_OFFSETS[character];
                 int yStart = yAnchor + CHAR_Y_OFFSETS[character];
@@ -106,7 +111,6 @@ public class Font {
 
                 xAnchor += CHAR_WIDTHS[character] + CHAR_X_OFFSETS[character] + 1;
             }
-            xAnchor += MAX_CHAR_WIDTH;
         }
 
         trimmedWidth += 1;
