@@ -4,12 +4,13 @@ import java.util.HashMap;
 
 import me.obyl.castlerun.Game;
 import me.obyl.castlerun.graphics.Animation;
+import me.obyl.castlerun.graphics.Sprite;
 import me.obyl.castlerun.utils.Save;
 import me.obyl.castlerun.utils.TileData;
 
 public class Player{
 
-    public final Animation[] animations = new Animation[4];
+    public final Animation[] animations = new Animation[8];
     public Game game;
     public int saveIndex;
     public String name;
@@ -23,6 +24,16 @@ public class Player{
 
     public Player(Game game){
         this.game = game;
+
+        Sprite source = new Sprite("/textures/player/person_32.png");
+        animations[0] = new Animation(-1, new Sprite(source, 32, 32, 0, 0), new Sprite(source, 32, 32, 1, 0));
+        animations[1] = new Animation(-1, new Sprite(source, 32, 32, 0, 1), new Sprite(source, 32, 32, 1, 1));
+        animations[2] = new Animation(-1, new Sprite(source, 32, 32, 0, 2), new Sprite(source, 32, 32, 1, 2));
+        animations[3] = new Animation(-1, new Sprite(source, 32, 32, 0, 3), new Sprite(source, 32, 32, 1, 3));
+        animations[4] = new Animation(-1, new Sprite(source, 32, 32, 2, 0), new Sprite(source, 32, 32, 3, 0), new Sprite(source, 32, 32, 4, 0));
+        animations[5] = new Animation(-1, new Sprite(source, 32, 32, 2, 1), new Sprite(source, 32, 32, 3, 1), new Sprite(source, 32, 32, 4, 1));
+        animations[6] = new Animation(-1, new Sprite(source, 32, 32, 2, 2), new Sprite(source, 32, 32, 3, 2), new Sprite(source, 32, 32, 4, 2));
+        animations[7] = new Animation(-1, new Sprite(source, 32, 32, 2, 3), new Sprite(source, 32, 32, 3, 3), new Sprite(source, 32, 32, 4, 3));
     }
 
     public void loadSave(Save save){
