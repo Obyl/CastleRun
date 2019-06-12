@@ -12,12 +12,13 @@ public class LoadingMenu {
     - Font
     - Sprites
     - Player
+    - HUD
 
     Not yet included:
     - Menus
     - Levels
      */
-    private static final int MAX_LOAD_COUNT = 1027;
+    private static final int MAX_LOAD_COUNT = 1028;
 
     private Game game;
     public Sprite background;

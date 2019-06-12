@@ -74,6 +74,8 @@ public class Player{
         this.name = save.name;
         this.x = save.x;
         this.y = save.y;
+        this.health = save.health;
+        this.maxHealth = save.maxHealth;
         this.facing = save.facing;
         this.keys = save.keys;
         this.hammer = save.hammer;
@@ -89,6 +91,8 @@ public class Player{
     public void updateSave(){
         game.saveMenu.data[saveIndex].x = this.x;
         game.saveMenu.data[saveIndex].y = this.y;
+        game.saveMenu.data[saveIndex].health = this.health;
+        game.saveMenu.data[saveIndex].maxHealth = this.maxHealth;
         game.saveMenu.data[saveIndex].facing = this.facing;
         game.saveMenu.data[saveIndex].keys = this.keys;
         game.saveMenu.data[saveIndex].hammer = this.hammer;

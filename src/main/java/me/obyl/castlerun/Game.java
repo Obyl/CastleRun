@@ -10,6 +10,7 @@ import me.obyl.castlerun.graphics.Sprite;
 import me.obyl.castlerun.utils.Keyboard;
 import me.obyl.castlerun.utils.Mouse;
 import me.obyl.castlerun.level.Level;
+import me.obyl.castlerun.menu.HUD;
 import me.obyl.castlerun.menu.LoadingMenu;
 import me.obyl.castlerun.menu.MainMenu;
 import me.obyl.castlerun.menu.SaveMenu;
@@ -68,6 +69,7 @@ public class Game extends Canvas {
     public SaveMenu saveMenu;
 
     public Player player;
+    public HUD hud;
 
     public Game(){
         // Setup window:
@@ -134,6 +136,10 @@ public class Game extends Canvas {
         player = new Player(this);
         loadingMenu.addToLoadCount();
 
+        // Load heads-up display.
+        hud = new HUD(this);
+        loadingMenu.addToLoadCount();
+
         // Load menus:
         mainMenu = new MainMenu(this);
         saveMenu = new SaveMenu(this, gson);
@@ -196,6 +202,7 @@ public class Game extends Canvas {
             case PLAYING:
                 Level.levels.get("area2").render(display);
                 player.render(display);
+                hud.render();
                 break;
             case INVENTORY:
                 break;
