@@ -14,7 +14,7 @@ public class Animation{
 
     public void tick(){
         if(counter < delay){
-            delay++;
+            counter++;
         }else{
             counter = 0;
             current++;
