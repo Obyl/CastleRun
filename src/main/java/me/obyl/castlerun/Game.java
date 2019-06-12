@@ -170,6 +170,7 @@ public class Game extends Canvas {
                 saveMenu.tick();
                 break;
             case PLAYING:
+                player.tick();
                 break;
             case INVENTORY:
                 break;
@@ -194,6 +195,7 @@ public class Game extends Canvas {
                 break;
             case PLAYING:
                 Level.levels.get("area2").render(display);
+                player.render(display);
                 break;
             case INVENTORY:
                 break;

@@ -1,10 +1,13 @@
 package me.obyl.castlerun.entity;
 
+import java.awt.event.KeyEvent;
 import java.util.HashMap;
 
 import me.obyl.castlerun.Game;
 import me.obyl.castlerun.graphics.Animation;
+import me.obyl.castlerun.graphics.Display;
 import me.obyl.castlerun.graphics.Sprite;
+import me.obyl.castlerun.utils.Keyboard;
 import me.obyl.castlerun.utils.Save;
 import me.obyl.castlerun.utils.TileData;
 
@@ -21,19 +24,49 @@ public class Player{
     public boolean hammer, cannon, greatSword, bigKey;
     public boolean master, chef, king;
     public HashMap<String, TileData[]> levelData;
+    public boolean moving;
 
     public Player(Game game){
         this.game = game;
 
         Sprite source = new Sprite("/textures/player/person_32.png");
-        animations[0] = new Animation(-1, new Sprite(source, 32, 32, 0, 0), new Sprite(source, 32, 32, 1, 0));
-        animations[1] = new Animation(-1, new Sprite(source, 32, 32, 0, 1), new Sprite(source, 32, 32, 1, 1));
-        animations[2] = new Animation(-1, new Sprite(source, 32, 32, 0, 2), new Sprite(source, 32, 32, 1, 2));
-        animations[3] = new Animation(-1, new Sprite(source, 32, 32, 0, 3), new Sprite(source, 32, 32, 1, 3));
-        animations[4] = new Animation(-1, new Sprite(source, 32, 32, 2, 0), new Sprite(source, 32, 32, 3, 0), new Sprite(source, 32, 32, 4, 0));
-        animations[5] = new Animation(-1, new Sprite(source, 32, 32, 2, 1), new Sprite(source, 32, 32, 3, 1), new Sprite(source, 32, 32, 4, 1));
-        animations[6] = new Animation(-1, new Sprite(source, 32, 32, 2, 2), new Sprite(source, 32, 32, 3, 2), new Sprite(source, 32, 32, 4, 2));
-        animations[7] = new Animation(-1, new Sprite(source, 32, 32, 2, 3), new Sprite(source, 32, 32, 3, 3), new Sprite(source, 32, 32, 4, 3));
+        animations[0] = new Animation(10, new Sprite(source, 32, 32, 0, 0), new Sprite(source, 32, 32, 1, 0));
+        animations[1] = new Animation(10, new Sprite(source, 32, 32, 0, 1), new Sprite(source, 32, 32, 1, 1));
+        animations[2] = new Animation(10, new Sprite(source, 32, 32, 0, 2), new Sprite(source, 32, 32, 1, 2));
+        animations[3] = new Animation(10, new Sprite(source, 32, 32, 0, 3), new Sprite(source, 32, 32, 1, 3));
+        animations[4] = new Animation(6, new Sprite(source, 32, 32, 2, 0), new Sprite(source, 32, 32, 3, 0), new Sprite(source, 32, 32, 4, 0));
+        animations[5] = new Animation(6, new Sprite(source, 32, 32, 2, 1), new Sprite(source, 32, 32, 3, 1), new Sprite(source, 32, 32, 4, 1));
+        animations[6] = new Animation(6, new Sprite(source, 32, 32, 2, 2), new Sprite(source, 32, 32, 3, 2), new Sprite(source, 32, 32, 4, 2));
+        animations[7] = new Animation(6, new Sprite(source, 32, 32, 2, 3), new Sprite(source, 32, 32, 3, 3), new Sprite(source, 32, 32, 4, 3));
+    }
+
+    public void tick(){
+        moving = false;
+        if(Keyboard.isKeyPressed(KeyEvent.VK_W)){
+            y--;
+            facing = 2;
+            moving = true;
+        }
+        if(Keyboard.isKeyPressed(KeyEvent.VK_A)){
+            x--;
+            facing = 3;
+            moving = true;
+        }
+        if(Keyboard.isKeyPressed(KeyEvent.VK_S)){
+            y++;
+            facing = 0;
+            moving = true;
+        }
+        if(Keyboard.isKeyPressed(KeyEvent.VK_D)){
+            x++;
+            facing = 1;
+            moving = true;
+        }
+        animations[facing + (moving ? 4 : 0)].tick();
+    }
+
+    public void render(Display display){
+        animations[facing + (moving ? 4 : 0)].render(display, x, y);
     }
 
     public void loadSave(Save save){
