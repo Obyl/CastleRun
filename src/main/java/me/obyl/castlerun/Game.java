@@ -7,6 +7,7 @@ import me.obyl.castlerun.entity.Player;
 import me.obyl.castlerun.graphics.Display;
 import me.obyl.castlerun.graphics.Font;
 import me.obyl.castlerun.graphics.Sprite;
+import me.obyl.castlerun.utils.Keyboard;
 import me.obyl.castlerun.utils.Mouse;
 import me.obyl.castlerun.level.Level;
 import me.obyl.castlerun.menu.LoadingMenu;
@@ -122,6 +123,8 @@ public class Game extends Canvas {
         addMouseMotionListener(mouse);
         addMouseWheelListener(mouse);
         loadingMenu.addToLoadCount();
+
+        addKeyListener(new Keyboard());
 
         // Load font data:
         Font.load(gson);
