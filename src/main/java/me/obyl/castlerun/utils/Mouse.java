@@ -16,9 +16,14 @@ public class Mouse implements MouseListener, MouseMotionListener, MouseWheelList
 
     private static boolean[] buttons = new boolean[4];
     public static int x, y;
+    public static int scroll;
 
     public static boolean isButtonPressed(int button){
         return buttons[button];
+    }
+
+    public static void tick(){
+        scroll = 0;
     }
 
     public void mouseClicked(MouseEvent e) {}
@@ -52,6 +57,6 @@ public class Mouse implements MouseListener, MouseMotionListener, MouseWheelList
     }
 
     public void mouseWheelMoved(MouseWheelEvent e) {
-
+        scroll = e.getWheelRotation();
     }
 }

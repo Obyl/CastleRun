@@ -7,6 +7,8 @@ public class HUD{
 
     private Game game;
     private Sprite heartLeftEmpty, heartLeftFull, heartRightEmpty, heartRightFull;
+    private Sprite itemBackground, itemHighlight;
+    private Sprite longSword, hammer, cannon, greatSword;
 
     public HUD(Game game){
         this.game = game;
@@ -15,6 +17,14 @@ public class HUD{
         heartLeftFull = new Sprite("/textures/player/heart_left_full.png");
         heartRightEmpty = new Sprite("/textures/player/heart_right_empty.png");
         heartRightFull = new Sprite("/textures/player/heart_right_full.png");
+
+        itemBackground = new Sprite("/textures/player/item_background.png");
+        itemHighlight = new Sprite("/textures/player/item_highlight.png");
+
+        longSword = new Sprite("/textures/player/longsword.png");
+        hammer = new Sprite("/textures/player/hammer.png");
+        cannon = new Sprite("/textures/player/cannon.png");
+        greatSword = new Sprite("/textures/player/greatsword.png");
     }
 
     public void render(){
@@ -32,6 +42,22 @@ public class HUD{
                     game.display.drawSprite(heartRightEmpty, (startX + 9) + (20 * (h/2)), 2);
             }
         }
+
+        game.display.drawSprite(itemBackground, 224, 25);
+        game.display.drawSprite(longSword, 226, 27);
+        if(game.player.hammer){
+            game.display.drawSprite(itemBackground, 224, 57);
+            game.display.drawSprite(hammer, 226, 59);
+        }
+        if(game.player.cannon){
+            game.display.drawSprite(itemBackground, 224, 89);
+            game.display.drawSprite(cannon, 226, 91);
+        }
+        if(game.player.greatSword){
+            game.display.drawSprite(itemBackground, 224, 121);
+            game.display.drawSprite(greatSword, 226, 123);
+        }
+        game.display.drawSprite(itemHighlight, 223, 24 + (32 * game.player.equippedWeapon));
     }
 
 }

@@ -184,6 +184,8 @@ public class Game extends Canvas {
             case PAUSED:
                 break;
         }
+
+        Mouse.tick();
     }
 
     private void render(){

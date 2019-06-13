@@ -10,6 +10,7 @@ public class Save{
     public int health = 6, maxHealth = 6;
     public int facing;
     public int keys;
+    public int equippedWeapon;
     public boolean hammer, cannon, greatSword, bigKey;
     public boolean master, chef, king;
     public HashMap<String, TileData[]> levelData;

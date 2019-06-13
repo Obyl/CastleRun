@@ -25,6 +25,7 @@ public class SaveMenu {
     private Sprite name0, name1, name2;
     private Sprite heartLeftEmpty, heartLeftFull, heartRightEmpty, heartRightFull;
     private Sprite bossDark, bossLight;
+    private Sprite longSword, hammer, cannon, greatSword;
     private EnterNameBox box0, box1, box2;
 
     public Game game;
@@ -101,6 +102,15 @@ public class SaveMenu {
         allSprites.add(heartRightEmpty);
         heartRightFull = new Sprite("/textures/player/heart_right_full.png");
         allSprites.add(heartRightFull);
+
+        longSword = new Sprite("/textures/player/longsword.png");
+        allSprites.add(longSword);
+        hammer = new Sprite("/textures/player/hammer.png");
+        allSprites.add(hammer);
+        cannon = new Sprite("/textures/player/cannon.png");
+        allSprites.add(cannon);
+        greatSword = new Sprite("/textures/player/greatsword.png");
+        allSprites.add(greatSword);
 
         bossDark = new Sprite("/textures/menu/boss_dark.png");
         allSprites.add(bossDark);
@@ -188,6 +198,14 @@ public class SaveMenu {
                 game.display.drawSprite(bossLight, 46, 92);
             else
                 game.display.drawSprite(bossDark, 46, 92);
+            
+            game.display.drawSprite(longSword, 174, 60);
+            if(data[0].hammer)
+                game.display.drawSprite(hammer, 174, 85);
+            if(data[0].cannon)
+                game.display.drawSprite(cannon, 200, 85);
+            if(data[0].greatSword)
+                game.display.drawSprite(greatSword, 200, 60);
         }
         if(data[1] == null){
             if(box1.show)
@@ -228,6 +246,14 @@ public class SaveMenu {
                 game.display.drawSprite(bossLight, 46, 148);
             else
                 game.display.drawSprite(bossDark, 46, 148);
+
+            game.display.drawSprite(longSword, 174, 115);
+            if(data[1].hammer)
+                game.display.drawSprite(hammer, 174, 140);
+            if(data[1].cannon)
+                game.display.drawSprite(cannon, 200, 140);
+            if(data[1].greatSword)
+                game.display.drawSprite(greatSword, 200, 115);
         }
         if(data[2] == null){
             if(box2.show)
@@ -268,6 +294,14 @@ public class SaveMenu {
                 game.display.drawSprite(bossLight, 46, 204);
             else
                 game.display.drawSprite(bossDark, 46, 204);
+
+            game.display.drawSprite(longSword, 174, 170);
+            if(data[2].hammer)
+                game.display.drawSprite(hammer, 174, 195);
+            if(data[2].cannon)
+                game.display.drawSprite(cannon, 200, 195);
+            if(data[2].greatSword)
+                game.display.drawSprite(greatSword, 200, 170);
         }
     }
 }

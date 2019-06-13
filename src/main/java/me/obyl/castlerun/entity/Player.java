@@ -9,6 +9,7 @@ import me.obyl.castlerun.graphics.Display;
 import me.obyl.castlerun.graphics.Sprite;
 import me.obyl.castlerun.level.Level;
 import me.obyl.castlerun.utils.Keyboard;
+import me.obyl.castlerun.utils.Mouse;
 import me.obyl.castlerun.utils.Save;
 import me.obyl.castlerun.utils.TileData;
 
@@ -25,6 +26,7 @@ public class Player{
     public int health, maxHealth;
     public int facing;
     public int keys;
+    public int equippedWeapon;
     public boolean hammer, cannon, greatSword, bigKey;
     public boolean master, chef, king;
     public HashMap<String, TileData[]> levelData;
@@ -88,6 +90,19 @@ public class Player{
         }
 
         animations[facing + (moving ? 4 : 0)].tick();
+
+        int maxWeapon = 0;
+        if(greatSword)
+            maxWeapon = 3;
+        else if(cannon)
+            maxWeapon = 2;
+        else if(hammer)
+            maxWeapon = 1;
+
+        if(Mouse.scroll < 0 && equippedWeapon > 0)
+            equippedWeapon--;
+        else if(Mouse.scroll > 0 && equippedWeapon < maxWeapon)
+            equippedWeapon++;
     }
 
     public void render(Display display){
@@ -103,6 +118,7 @@ public class Player{
         this.maxHealth = save.maxHealth;
         this.facing = save.facing;
         this.keys = save.keys;
+        this.equippedWeapon = save.equippedWeapon;
         this.hammer = save.hammer;
         this.cannon = save.cannon;
         this.greatSword = save.greatSword;
@@ -120,6 +136,7 @@ public class Player{
         game.saveMenu.data[saveIndex].maxHealth = this.maxHealth;
         game.saveMenu.data[saveIndex].facing = this.facing;
         game.saveMenu.data[saveIndex].keys = this.keys;
+        game.saveMenu.data[saveIndex].equippedWeapon = this.equippedWeapon;
         game.saveMenu.data[saveIndex].hammer = this.hammer;
         game.saveMenu.data[saveIndex].cannon = this.cannon;
         game.saveMenu.data[saveIndex].greatSword = this.greatSword;
