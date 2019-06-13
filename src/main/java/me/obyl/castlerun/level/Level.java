@@ -37,6 +37,10 @@ public class Level {
             sprites1[i] = 1;
     }
 
+    public boolean collidesAt(int x, int y){
+        return collision[x + y * width];
+    }
+
     public void render(Display display, int playerX, int playerY){
         int x0 = (playerX >> 4) - 8;
         int y0 = (playerY >> 4) - 6;

@@ -45,31 +45,48 @@ public class Player{
     }
 
     public void tick(){
+        int xd = 0;
+        int yd = 0;
         moving = false;
+
         if(Keyboard.isKeyPressed(KeyEvent.VK_W)){
-            if((y + 17) > 0)
-                y--;
+            yd = -1;
             facing = 2;
-            moving = true;
         }
         if(Keyboard.isKeyPressed(KeyEvent.VK_A)){
-            if((x + 11) > 0)
-                x--;
+            xd = -1;
             facing = 3;
-            moving = true;
         }
         if(Keyboard.isKeyPressed(KeyEvent.VK_S)){
-            if(y + 32 < Level.levels.get(game.currentLevel).height << 4)
-                y++;
+            yd = 1;
             facing = 0;
-            moving = true;
         }
         if(Keyboard.isKeyPressed(KeyEvent.VK_D)){
-            if(x + 22 < Level.levels.get(game.currentLevel).width << 4)
-                x++;
+            xd = 1;
             facing = 1;
-            moving = true;
         }
+
+        if(xd != 0 || yd != 0){
+            moving = true;
+
+            Level inLevel = Level.levels.get(game.currentLevel);
+
+            if(xd < 0){
+                if(!inLevel.collidesAt((x + xd + 10) >> 4, (y + 16) >> 4) && !inLevel.collidesAt((x + xd + 10) >> 4, (y + 31) >> 4))
+                    x--;
+            }else if(xd > 0){
+                if(!inLevel.collidesAt((x + xd + 21) >> 4, (y + 16) >> 4) && !inLevel.collidesAt((x + xd + 21) >> 4, (y + 31) >> 4))
+                    x++;
+            }
+            if(yd < 0){
+                if(!inLevel.collidesAt((x + 10) >> 4, (y + yd + 16) >> 4) && !inLevel.collidesAt((x + 21) >> 4, (y + yd + 16) >> 4))
+                    y--;
+            }else if(yd > 0){
+                if(!inLevel.collidesAt((x + 10) >> 4, (y + yd + 31) >> 4) && !inLevel.collidesAt((x + 21) >> 4, (y + yd + 31) >> 4))
+                    y++;
+            }
+        }
+
         animations[facing + (moving ? 4 : 0)].tick();
     }
 
