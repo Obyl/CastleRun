@@ -68,6 +68,7 @@ public class Game extends Canvas {
     public MainMenu mainMenu;
     public SaveMenu saveMenu;
 
+    public String currentLevel = "area3";
     public Player player;
     public HUD hud;
 
@@ -200,7 +201,7 @@ public class Game extends Canvas {
                 saveMenu.render();
                 break;
             case PLAYING:
-                Level.levels.get("area2").render(display);
+                Level.levels.get(currentLevel).render(display, player.x, player.y);
                 player.render(display);
                 hud.render();
                 break;

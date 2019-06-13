@@ -7,11 +7,15 @@ import me.obyl.castlerun.Game;
 import me.obyl.castlerun.graphics.Animation;
 import me.obyl.castlerun.graphics.Display;
 import me.obyl.castlerun.graphics.Sprite;
+import me.obyl.castlerun.level.Level;
 import me.obyl.castlerun.utils.Keyboard;
 import me.obyl.castlerun.utils.Save;
 import me.obyl.castlerun.utils.TileData;
 
 public class Player{
+
+    private final int centreX = Game.WIDTH >> 1;
+    private final int centreY = Game.HEIGHT >> 1;
 
     public final Animation[] animations = new Animation[8];
     public Game game;
@@ -43,22 +47,26 @@ public class Player{
     public void tick(){
         moving = false;
         if(Keyboard.isKeyPressed(KeyEvent.VK_W)){
-            y--;
+            if((y + 17) > 0)
+                y--;
             facing = 2;
             moving = true;
         }
         if(Keyboard.isKeyPressed(KeyEvent.VK_A)){
-            x--;
+            if((x + 11) > 0)
+                x--;
             facing = 3;
             moving = true;
         }
         if(Keyboard.isKeyPressed(KeyEvent.VK_S)){
-            y++;
+            if(y + 32 < Level.levels.get(game.currentLevel).height << 4)
+                y++;
             facing = 0;
             moving = true;
         }
         if(Keyboard.isKeyPressed(KeyEvent.VK_D)){
-            x++;
+            if(x + 22 < Level.levels.get(game.currentLevel).width << 4)
+                x++;
             facing = 1;
             moving = true;
         }
@@ -66,7 +74,7 @@ public class Player{
     }
 
     public void render(Display display){
-        animations[facing + (moving ? 4 : 0)].render(display, x, y);
+        animations[facing + (moving ? 4 : 0)].render(display, centreX - 16, centreY - 16);
     }
 
     public void loadSave(Save save){

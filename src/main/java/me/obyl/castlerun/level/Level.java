@@ -2,6 +2,7 @@ package me.obyl.castlerun.level;
 
 import com.google.gson.Gson;
 
+import me.obyl.castlerun.Game;
 import me.obyl.castlerun.graphics.Display;
 import me.obyl.castlerun.graphics.Sprite;
 
@@ -36,11 +37,24 @@ public class Level {
             sprites1[i] = 1;
     }
 
-    public void render(Display display){
-        for(int y = 0; y < height; y++){
-            for(int x = 0; x < width; x++){
-                display.drawSprite(tileset[sprites1[x + y * width]], x << 4, y << 4);
-                display.drawSprite(tileset[sprites2[x + y * width]], x << 4, y << 4);
+    public void render(Display display, int playerX, int playerY){
+        int x0 = (playerX >> 4) - 8;
+        int y0 = (playerY >> 4) - 6;
+
+        int x1 = x0 + 18;
+        int y1 = y0 + 15;
+
+        int xScroll = (Game.WIDTH >> 1) - 16 - playerX;
+        int yScroll = (Game.HEIGHT >> 1) - 16 - playerY;
+
+        for(int y = y0; y < y1; y++){
+            for(int x = x0; x < x1; x++){
+                if(y < 0 || x < 0 || y >= height || x >= width)
+                    continue;
+
+                int currentTile = x + y * width;
+                display.drawSprite(tileset[sprites1[currentTile]], (x << 4) + xScroll, (y << 4) + yScroll);
+                display.drawSprite(tileset[sprites2[currentTile]], (x << 4) + xScroll, (y << 4) + yScroll);
             }
         }
     }
