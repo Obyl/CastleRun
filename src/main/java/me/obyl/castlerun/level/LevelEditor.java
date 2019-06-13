@@ -360,7 +360,7 @@ public class LevelEditor extends JPanel implements KeyListener, MouseListener, M
                     break;
                 case KeyEvent.VK_S:
                     if(filePath == null){
-                        File file = new File("assets/data/levels/" + level.name + ".json");
+                        File file = new File("C:/Dev/CastleRun/src/main/resources/data/levels/" + level.name + ".json");
                         filePath = file.getAbsolutePath();
                     }
 
