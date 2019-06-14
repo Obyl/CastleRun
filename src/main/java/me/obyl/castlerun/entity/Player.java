@@ -18,7 +18,8 @@ public class Player{
     private final int centreX = Game.WIDTH >> 1;
     private final int centreY = Game.HEIGHT >> 1;
 
-    public final Animation[] animations = new Animation[8];
+    public final Animation[] walkingAnimations = new Animation[8];
+    public final Animation[] weaponAnimations = new Animation[8];
     public Game game;
     public int saveIndex;
     public String name;
@@ -35,15 +36,25 @@ public class Player{
     public Player(Game game){
         this.game = game;
 
-        Sprite source = new Sprite("/textures/player/person_32.png");
-        animations[0] = new Animation(10, new Sprite(source, 32, 32, 0, 0), new Sprite(source, 32, 32, 1, 0));
-        animations[1] = new Animation(10, new Sprite(source, 32, 32, 0, 1), new Sprite(source, 32, 32, 1, 1));
-        animations[2] = new Animation(10, new Sprite(source, 32, 32, 0, 2), new Sprite(source, 32, 32, 1, 2));
-        animations[3] = new Animation(10, new Sprite(source, 32, 32, 0, 3), new Sprite(source, 32, 32, 1, 3));
-        animations[4] = new Animation(6, new Sprite(source, 32, 32, 2, 0), new Sprite(source, 32, 32, 3, 0), new Sprite(source, 32, 32, 4, 0));
-        animations[5] = new Animation(6, new Sprite(source, 32, 32, 2, 1), new Sprite(source, 32, 32, 3, 1), new Sprite(source, 32, 32, 4, 1));
-        animations[6] = new Animation(6, new Sprite(source, 32, 32, 2, 2), new Sprite(source, 32, 32, 3, 2), new Sprite(source, 32, 32, 4, 2));
-        animations[7] = new Animation(6, new Sprite(source, 32, 32, 2, 3), new Sprite(source, 32, 32, 3, 3), new Sprite(source, 32, 32, 4, 3));
+        Sprite walkingSource = new Sprite("/textures/player/person_32.png");
+        walkingAnimations[0] = new Animation(10, new Sprite(walkingSource, 32, 32, 0, 0), new Sprite(walkingSource, 32, 32, 1, 0));
+        walkingAnimations[1] = new Animation(10, new Sprite(walkingSource, 32, 32, 0, 1), new Sprite(walkingSource, 32, 32, 1, 1));
+        walkingAnimations[2] = new Animation(10, new Sprite(walkingSource, 32, 32, 0, 2), new Sprite(walkingSource, 32, 32, 1, 2));
+        walkingAnimations[3] = new Animation(10, new Sprite(walkingSource, 32, 32, 0, 3), new Sprite(walkingSource, 32, 32, 1, 3));
+        walkingAnimations[4] = new Animation(6, new Sprite(walkingSource, 32, 32, 2, 0), new Sprite(walkingSource, 32, 32, 3, 0), new Sprite(walkingSource, 32, 32, 4, 0));
+        walkingAnimations[5] = new Animation(6, new Sprite(walkingSource, 32, 32, 2, 1), new Sprite(walkingSource, 32, 32, 3, 1), new Sprite(walkingSource, 32, 32, 4, 1));
+        walkingAnimations[6] = new Animation(6, new Sprite(walkingSource, 32, 32, 2, 2), new Sprite(walkingSource, 32, 32, 3, 2), new Sprite(walkingSource, 32, 32, 4, 2));
+        walkingAnimations[7] = new Animation(6, new Sprite(walkingSource, 32, 32, 2, 3), new Sprite(walkingSource, 32, 32, 3, 3), new Sprite(walkingSource, 32, 32, 4, 3));
+
+        Sprite weaponSource = new Sprite("/textures/player/holding.png");
+        weaponAnimations[0] = new Animation(10, new Sprite(weaponSource, 32, 32, 0, 0), new Sprite(weaponSource, 32, 32, 1, 0));
+        weaponAnimations[1] = new Animation(10, new Sprite(weaponSource, 32, 32, 0, 1), new Sprite(weaponSource, 32, 32, 1, 1));
+        weaponAnimations[2] = new Animation(10, new Sprite(weaponSource, 32, 32, 0, 2), new Sprite(weaponSource, 32, 32, 1, 2));
+        weaponAnimations[3] = new Animation(10, new Sprite(weaponSource, 32, 32, 0, 3), new Sprite(weaponSource, 32, 32, 1, 3));
+        weaponAnimations[4] = new Animation(6, new Sprite(weaponSource, 32, 32, 2, 0), new Sprite(weaponSource, 32, 32, 3, 0), new Sprite(weaponSource, 32, 32, 4, 0));
+        weaponAnimations[5] = new Animation(6, new Sprite(weaponSource, 32, 32, 2, 1), new Sprite(weaponSource, 32, 32, 3, 1), new Sprite(weaponSource, 32, 32, 4, 1));
+        weaponAnimations[6] = new Animation(6, new Sprite(weaponSource, 32, 32, 2, 2), new Sprite(weaponSource, 32, 32, 3, 2), new Sprite(weaponSource, 32, 32, 4, 2));
+        weaponAnimations[7] = new Animation(6, new Sprite(weaponSource, 32, 32, 2, 3), new Sprite(weaponSource, 32, 32, 3, 3), new Sprite(weaponSource, 32, 32, 4, 3));
     }
 
     public void tick(){
@@ -89,7 +100,8 @@ public class Player{
             }
         }
 
-        animations[facing + (moving ? 4 : 0)].tick();
+        walkingAnimations[facing + (moving ? 4 : 0)].tick();
+        weaponAnimations[facing + (moving ? 4 : 0)].tick();
 
         int maxWeapon = 0;
         if(greatSword)
@@ -106,7 +118,8 @@ public class Player{
     }
 
     public void render(Display display){
-        animations[facing + (moving ? 4 : 0)].render(display, centreX - 16, centreY - 16);
+        walkingAnimations[facing + (moving ? 4 : 0)].render(display, centreX - 16, centreY - 16);
+        weaponAnimations[facing + (moving ? 4 : 0)].render(display, centreX - 16, centreY - 16);
     }
 
     public void loadSave(Save save){
