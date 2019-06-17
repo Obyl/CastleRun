@@ -12,6 +12,10 @@ public class Animation{
         this.sprites = sprites;
     }
 
+    public void reset(){
+        counter = current = 0;
+    }
+
     public void tick(){
         if(counter < delay){
             counter++;

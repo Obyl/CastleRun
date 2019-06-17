@@ -31,6 +31,7 @@ public class Player{
     public boolean master, chef, king;
     public HashMap<String, TileData[]> levelData;
     public boolean moving, attacking;
+    public int attackCounter;
 
     public Player(Game game){
         this.game = game;
@@ -49,12 +50,25 @@ public class Player{
         // Attack animations:
         for(int w = 0; w < 4; w++)
             for(int d = 0; d < 4; d++)
-                animations[2 + (d + 4 * w) * 3] = new Animation(5, new Sprite(source, 32, 32, 4, d + 4 * w), new Sprite(source, 32, 32, 5, d + 4 * w),
+                animations[2 + (d + 4 * w) * 3] = new Animation(3, new Sprite(source, 32, 32, 4, d + 4 * w), new Sprite(source, 32, 32, 5, d + 4 * w),
                                                                    new Sprite(source, 32, 32, 6, d + 4 * w), new Sprite(source, 32, 32, 7, d + 4 * w));
     }
 
     public void tick(){
         hammer = cannon = greatSword = true;
+
+        if(attacking){
+            if(attackCounter < 12){
+                attackCounter++;
+            }else{
+                attackCounter = 0;
+                attacking = false;
+            }
+        }else if(Mouse.isButtonPressed(Mouse.LEFT) && equippedWeapon == 0){
+            attacking = true;
+            animations[2 + (facing + 4 * equippedWeapon) * 3].reset();
+        }
+
         int xd = 0;
         int yd = 0;
         moving = false;
@@ -76,7 +90,7 @@ public class Player{
             facing = 1;
         }
 
-        if(xd != 0 || yd != 0){
+        if((xd != 0 || yd != 0) && !attacking){
             moving = true;
 
             Level inLevel = Level.levels.get(game.currentLevel);
@@ -124,7 +138,21 @@ public class Player{
             mod = 1;
         else if(attacking)
             mod = 2;
-        animations[mod + (facing + 4 * equippedWeapon) * 3].render(display, centreX - 16, centreY - 16);
+
+        int displayX = centreX - 16;
+        int displayY = centreY - 16;
+        if(attacking){
+            if(facing == 0)
+                displayY += 1;
+            else if(facing == 1)
+                displayX += 8;
+            else if(facing == 2)
+                displayY -= 2;
+            else if(facing == 3)
+                displayX -= 8;
+        }
+
+        animations[mod + (facing + 4 * equippedWeapon) * 3].render(display, displayX, displayY);
     }
 
     public void loadSave(Save save){
