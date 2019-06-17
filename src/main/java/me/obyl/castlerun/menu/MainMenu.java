@@ -19,11 +19,11 @@ public class MainMenu {
     public Sprite creditText;
 
     private Button playButton;
-    private Button optionsButton;
+    private Button aboutButton;
     private Button quitButton;
     private Button openEditor;
 
-    private boolean transToSaves;
+    private boolean transToSaves, transToAbout;
 
     public MainMenu(Game game){
         this.game = game;
@@ -34,57 +34,69 @@ public class MainMenu {
         titleText.opacity = 0.0f;
 
         creditText = Font.createSprite("by Oliver Byl", 100, 30, 0xCBD8F2);
-        creditText.opacity = 0.0f;
 
         playButton = new Button(162, 85, "Play", "normal");
-        playButton.sprite.opacity = 0.0f;
         playButton.action = () -> {
-            transToSaves = true;;
+            transToSaves = true;
         };
 
-        optionsButton = new Button(162, 115, "Options", "normal");
-        optionsButton.sprite.opacity = 0.0f;
+        aboutButton = new Button(162, 115, "About", "normal");
+        aboutButton.action = () -> {
+            transToAbout = true;
+        };
 
         quitButton = new Button(162, 145, "Quit", "normal");
-        quitButton.sprite.opacity = 0.0f;
         quitButton.action = () -> {
             System.exit(0);
         };
 
         openEditor = new Button(2, 202, "Open Editor", "normal");
-        openEditor.sprite.opacity = 0.0f;
         openEditor.action = LevelEditor::new;
+
+        hideAll();
+    }
+
+    public void hideAll(){
+        creditText.opacity = 0.0f;
+        playButton.sprite.opacity = 0.0f;
+        aboutButton.sprite.opacity = 0.0f;
+        quitButton.sprite.opacity = 0.0f;
+        openEditor.sprite.opacity = 0.0f;
     }
 
     public void tick(){
-        if(yScroll < 229){
+        if(transToSaves || transToAbout){
+            if(creditText.opacity > 0.0f){
+                creditText.opacity -= 0.02;
+                playButton.sprite.opacity -= 0.02;
+                aboutButton.sprite.opacity -= 0.02;
+                quitButton.sprite.opacity -= 0.02;
+                openEditor.sprite.opacity -= 0.02;
+            }else{
+                if(transToSaves){
+                    game.state = GameState.VIEW_SAVES;
+                    transToSaves = false;
+                }else if(transToAbout){
+                    game.state = GameState.VIEW_ABOUT;
+                    game.aboutMenu.hideAll();
+                    transToAbout = false;
+                }
+            }
+        }else if(yScroll < 229){
             yScroll += yScrollChange;
             yScrollChange += 0.01;
-        }else if(titleText.opacity < 1.0f){
+        }else if(creditText.opacity < 1.0f){
             titleText.opacity += 0.02;
             creditText.opacity += 0.02;
             playButton.sprite.opacity += 0.02;
-            optionsButton.sprite.opacity += 0.02;
+            aboutButton.sprite.opacity += 0.02;
             quitButton.sprite.opacity += 0.02;
             openEditor.sprite.opacity += 0.02;
         }else{
             playButton.tick();
-            optionsButton.tick();
+            aboutButton.tick();
             quitButton.tick();
             openEditor.tick();
-        }
-
-        if(transToSaves){
-            if(creditText.opacity > 0.0f){
-                creditText.opacity -= 0.02;
-                playButton.sprite.opacity -= 0.02;
-                optionsButton.sprite.opacity -= 0.02;
-                quitButton.sprite.opacity -= 0.02;
-                openEditor.sprite.opacity -= 0.02;
-            }else{
-                game.state = GameState.VIEW_SAVES;
-                transToSaves = false;
-            }
         }
     }
 
@@ -103,7 +115,7 @@ public class MainMenu {
         game.display.drawSprite(creditText, 191, 441 - yScroll);
 
         playButton.render(game.display);
-        optionsButton.render(game.display);
+        aboutButton.render(game.display);
         quitButton.render(game.display);
         openEditor.render(game.display);
     }

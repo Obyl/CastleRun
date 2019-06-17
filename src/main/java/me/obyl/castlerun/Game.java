@@ -10,6 +10,7 @@ import me.obyl.castlerun.graphics.Sprite;
 import me.obyl.castlerun.utils.Keyboard;
 import me.obyl.castlerun.utils.Mouse;
 import me.obyl.castlerun.level.Level;
+import me.obyl.castlerun.menu.AboutMenu;
 import me.obyl.castlerun.menu.HUD;
 import me.obyl.castlerun.menu.LoadingMenu;
 import me.obyl.castlerun.menu.MainMenu;
@@ -66,6 +67,7 @@ public class Game extends Canvas {
 
     public LoadingMenu loadingMenu;
     public MainMenu mainMenu;
+    public AboutMenu aboutMenu;
     public SaveMenu saveMenu;
 
     public String currentLevel = "area3";
@@ -143,6 +145,7 @@ public class Game extends Canvas {
 
         // Load menus:
         mainMenu = new MainMenu(this);
+        aboutMenu = new AboutMenu(this);
         saveMenu = new SaveMenu(this, gson);
 
         // Load tile textures:
@@ -173,13 +176,14 @@ public class Game extends Canvas {
             case MAIN_MENU:
                 mainMenu.tick();
                 break;
+            case VIEW_ABOUT:
+                aboutMenu.tick();
+                break;
             case VIEW_SAVES:
                 saveMenu.tick();
                 break;
             case PLAYING:
                 player.tick();
-                break;
-            case INVENTORY:
                 break;
             case PAUSED:
                 break;
@@ -199,6 +203,9 @@ public class Game extends Canvas {
             case MAIN_MENU:
                 mainMenu.render();
                 break;
+            case VIEW_ABOUT:
+                aboutMenu.render();
+                break;
             case VIEW_SAVES:
                 saveMenu.render();
                 break;
@@ -206,8 +213,6 @@ public class Game extends Canvas {
                 Level.levels.get(currentLevel).render(display, player.x, player.y);
                 player.render(display);
                 hud.render();
-                break;
-            case INVENTORY:
                 break;
             case PAUSED:
                 break;
